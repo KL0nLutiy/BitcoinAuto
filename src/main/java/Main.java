@@ -1,3 +1,4 @@
+import net.marketer.RuCaptcha;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,9 @@ public class Main {
         System.setProperty("webdriver.chrome.driver", Configuration.getInstance().getProperty(Configuration.DRIVER_PATH));
 
         driver = new ChromeDriver();
+
+        RuCaptcha.API_KEY = Configuration.getInstance().getProperty(Configuration.API_KEY);
+
 
 
 

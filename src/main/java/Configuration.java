@@ -7,11 +7,13 @@ import java.util.Properties;
 /**
  * Created by Vlad on 20.07.2016.
  */
+
 public class Configuration {
 
     public static final Logger Log = Logger.getLogger(Configuration.class);
 
     public static final String DRIVER_PATH = "DRIVER_PATH";
+    public static final String API_KEY = "API_KEY";
 
     private static Configuration instance = null;
     private Properties props = null;
@@ -19,7 +21,7 @@ public class Configuration {
     private Configuration() {
         props = new Properties();
         try {
-            FileInputStream fis = new FileInputStream(new File("config.conf"));
+            FileInputStream fis = new FileInputStream(new File("config.ini"));
             props.load(fis);
         }
         catch (Exception e) {
