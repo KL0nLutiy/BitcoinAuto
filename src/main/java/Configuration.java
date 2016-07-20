@@ -14,6 +14,8 @@ public class Configuration {
 
     public static final String DRIVER_PATH = "DRIVER_PATH";
     public static final String API_KEY = "API_KEY";
+    public static final String ELEMENT_TIMEOUT = "ELEMENT_TIMEOUT";
+    public static final String BITCOIN_ADRESS = "BITCOIN_ADDRESS";
 
     private static Configuration instance = null;
     private Properties props = null;
