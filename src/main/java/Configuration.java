@@ -23,7 +23,7 @@ public class Configuration {
     private Configuration() {
         props = new Properties();
         try {
-            FileInputStream fis = new FileInputStream(new File("config.ini"));
+            FileInputStream fis = new FileInputStream(new File(".\\config.ini"));
             props.load(fis);
         }
         catch (Exception e) {

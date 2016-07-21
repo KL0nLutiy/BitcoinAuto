@@ -18,6 +18,9 @@ public class Main {
 
         RuCaptcha.API_KEY = Configuration.getInstance().getProperty(Configuration.API_KEY);
 
+        Sites sites = new Sites();
+        sites.coinSteller();
+
 
 
 

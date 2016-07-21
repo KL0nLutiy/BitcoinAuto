@@ -19,8 +19,5 @@ public class Sites {
         WebElement captcha = WebElementUtils.initElementWhenLoaded(By.id("pixel"));
         ImageWork imageWork = new ImageWork();
         imageWork.saveScreenShot(captcha);
-
-
-
     }
 }
