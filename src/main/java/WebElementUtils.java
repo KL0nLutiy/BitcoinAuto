@@ -18,6 +18,10 @@ public class WebElementUtils {
         return driver.findElement(by);
     }
 
+    public static boolean isElementExist(By by) {
+        return Main.driver.findElements(by).size() > 0;
+    }
+
     public static void moveToElement(WebElement element){
         Actions actions = new Actions(Main.driver);
         actions.moveToElement(element);

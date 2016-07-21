@@ -20,14 +20,12 @@ public class ImageWork {
 
     boolean isScrolled = false;
 
-    public void saveScreenShot(WebElement element) {
+    public File saveScreenShot(WebElement element) {
+        File screenshot = null;
         try {
-            File screenshot = ((TakesScreenshot) Main.driver).getScreenshotAs(OutputType.FILE);
+            screenshot = ((TakesScreenshot) Main.driver).getScreenshotAs(OutputType.FILE);
             BufferedImage fullImg = ImageIO.read(screenshot);
 
-            //Get the location of element on the page
-            Point point = element.getLocation();
-            //Get width and height of the element
             int eleWidth = element.getSize().getWidth();
             int eleHeight = element.getSize().getHeight();
 
@@ -61,36 +59,14 @@ public class ImageWork {
                 heightLoc = fullImg.getHeight() - 200 - eleHeight;
             }
 
-            //Crop the entire page screenshot to get only element screenshot
             BufferedImage eleScreenshot = fullImg.getSubimage(widthLoc, heightLoc, eleWidth, eleHeight);
             ImageIO.write(eleScreenshot, "png", screenshot);
-            //Copy the element screenshot to disk
-            /*File screenshotLocation = new File(".\\image\\screen.png");
-            FileUtils.copyFile(screenshot, screenshotLocation);*/
-            String response = RuCaptcha.postCaptcha(screenshot);
-            String CAPCHA_ID;
-            String decryption;
-            if (response.startsWith("OK")) {
-                CAPCHA_ID = response.substring(3);
-                while (true){
-                    response = RuCaptcha.getDecryption(CAPCHA_ID);
-                    if(response.equals(RuCaptcha.Responses.CAPCHA_NOT_READY.toString())){
-                        Thread.sleep(5000);
-                    }else if(response.startsWith("OK")){
-                        decryption = response.substring(3);
-                        System.out.println(decryption);
-                        break;
-                    }else {
-                        //обработка ошибок
-                    }
-                }
-            }
+
         } catch (IOException e) {
             e.printStackTrace();
             Log.error("Cannot take screenshot", e);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.error("Rucaptcha error", e);
         }
+
+        return screenshot;
     }
 }

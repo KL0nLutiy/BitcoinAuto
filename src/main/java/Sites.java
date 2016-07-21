@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -18,6 +19,32 @@ public class Sites {
 
         WebElement captcha = WebElementUtils.initElementWhenLoaded(By.id("pixel"));
         ImageWork imageWork = new ImageWork();
-        imageWork.saveScreenShot(captcha);
+        File screen = imageWork.saveScreenShot(captcha);
+
+        if(screen==null) {
+            return;
+        }
+
+        CaptchaSolver captchaSolver = new CaptchaSolver();
+
+        while (true) {
+            String decription = captchaSolver.simpleCaptchaPost(screen);
+            WebElement captchaInput = WebElementUtils.initElementWhenLoaded(By.id("vercode"));
+            captchaInput.sendKeys(decription);
+
+            WebElement submit = formInputs.get(0);
+            submit.click();
+
+            if(WebElementUtils.isElementExist(By.className("alert"))) {
+                WebElement alertText = WebElementUtils.initElementWhenLoaded(By.className("alert"));
+
+                if(alertText.getText().contains("Invalid")) {
+                    captchaSolver.badCaptchaReport();
+                } else {
+                    break;
+                }
+            }
+        }
+
     }
 }
